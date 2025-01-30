@@ -133,16 +133,7 @@ function updateFamilyTree() {
         const option = {
             tooltip: {
                 trigger: 'item',
-                triggerOn: 'mousemove',
-                tooltip: {
-                    formatter: (params) => {
-                        const data = params.data;
-                        console.log(data);
-                        return `Name: ${data.name}<br>
-                        ID: ${data.id || 'N/A'}<br>
-                        DOB: ${data.dob || 'N/A'}`
-                    }
-                },
+                triggerOn: 'mousemove'
             },
             series: [
                 {
@@ -169,7 +160,7 @@ function updateFamilyTree() {
                     emphasis: {
                         focus: 'descendant'
                     },
-                    initialTreeDepth: 6,
+                    initialTreeDepth: 7,
                     expandAndCollapse: true,
                     animationDuration: 550,
                     animationDurationUpdate: 750
