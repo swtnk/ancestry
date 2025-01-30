@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Family Tree</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="./assets/vendors/bs5/css/bootstrap.min.css">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="./assets/vendors/bs-icons/font/bootstrap-icons.min.css">
+  <!-- ECharts -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <link rel="stylesheet" href="./assets/app/css/multiselect.css">
+  <link rel="stylesheet" href="./assets/app/css/styles.css">
+</head>
+
+<body class="bg-light">
+  <div class="container py-4">
+    <h1 class="text-center mb-4">Family Tree</h1>
+    <div class="d-flex justify-content-between mb-3">
+      <button class="btn btn-primary" onclick="openModal()">
+        <i class="bi bi-plus-circle"></i> Add Family Member
+      </button>
+      <select class="form-control form-control-sm form-select w-25" id="graph-type" onchange="updateFamilyTree()">
+        <option value="tree" selected>Tree Structure</option>
+        <option value="graph-label-overlap">Graph Label Overlap</option>
+        <option value="graph-force">Graph Force</option>
+        <option value="tree-polyline">Tree Polyline</option>
+        <option value="tree-radial">Tree Radial</option>
+      </select>
+      <div class="w-25">
+        <label class="fw-bold" for="familyTree">Upload Tree File</label>
+        <input class="form-control form-control-sm" type="file" name="familyTree" id="familyTree" accept=".json"
+        onchange="importTree(event)">
+      </div>
+      <button class="btn btn-sm btn-primary" type="button" onclick="exportTree()"><i class="bi bi-download"></i>
+        Export</button>
+      <button class="btn btn-sm btn-danger" type="button" onclick="clearStorage()"><i class="bi bi-trash-fill"></i>
+        Clear</button>
+    </div>
+    <div id="chart"></div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">Add Family Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="add-member" onsubmit="saveMember(); return false;">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name:</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="dob" class="form-label">Date of Birth (optional):</label>
+              <input type="date" class="form-control" id="dob">
+            </div>
+            <div class="mb-3">
+              <label for="gender" class="form-label">Gender:</label>
+              <select class="form-select" id="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="spouse" class="form-label">Spouse (optional):</label>
+              <select class="form-select" id="spouse" multiple data-multi-select-plugin></select>
+            </div>
+            <div class="mb-3">
+              <label for="parent" class="form-label">Parent (optional, max 2):</label>
+              <select class="form-select" id="parent" multiple data-multi-select-plugin></select>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> Save
+              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <i class="bi bi-x-circle"></i> Cancel
+              </button>
+              <button type="button" class="btn btn-danger" id="delete-button" onclick="deleteMember()"
+                style="display: none;">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="./assets/vendors/bs5/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="./assets/app/js/multiselect.js"></script>
+  <script src="./assets/app/js/converter.js"></script>
+  <script src="./assets/app/js/script.js"></script>
+</body>
+
+</html>
