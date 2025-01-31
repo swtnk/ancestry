@@ -241,13 +241,14 @@ function autocomplete(query, options) {
     if (!query) {
         return options;
     }
-    let options_return = [];
+    let options_return = {};
 
-    for (let i = 0; i < options.length; i++) {
-        if (query.toLowerCase() === options[i].slice(0, query.length).toLowerCase()) {
-            options_return.push(options[i]);
+    Object.entries(options).forEach(option => {
+        if (option[1].toLowerCase().includes(query.toLowerCase())) {
+            options_return[option[0]] = option[1];
         }
-    }
+    });
+
     return options_return;
 }
 

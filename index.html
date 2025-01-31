@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Family Tree</title>
+  <title>Ancestry</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="./assets/vendors/bs5/css/bootstrap.min.css">
   <!-- Bootstrap Icons -->
@@ -16,34 +16,52 @@
 </head>
 
 <body class="bg-light">
-  <div class="container py-4">
-    <h1 class="text-center mb-4">Ancestry</h1>
-    <div class="d-flex justify-content-between mb-3 border-1 border-dark">
-      <button class="btn btn-primary btn-sm" onclick="openModal()">
-        <i class="bi bi-plus-circle"></i> Add Member
-      </button>
-      <select class="form-control form-control-sm form-select w-25" id="graph-type" onchange="updateFamilyTree()">
-        <option value="tree" selected>Tree Structure</option>
-        <option value="graph-label-overlap">Graph Label Overlap</option>
-        <option value="graph-force">Graph Force</option>
-        <option value="tree-polyline">Tree Polyline</option>
-        <option value="tree-radial">Tree Radial</option>
-      </select>
-      <div class="w-25">
-        <label class="fw-bold" for="familyTree">Upload Tree File</label>
-        <input class="form-control form-control-sm" type="file" name="familyTree" id="familyTree" accept=".json"
-        onchange="importTree(event)">
+
+  <!-- Navbar Start -->	
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+    <div class="container">
+      <a class="navbar-brand h1" href="/">Ancestry</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <button class="btn btn-primary btn-sm" onclick="openModal()">
+            <i class="bi bi-plus-circle"></i> Add Member
+          </button>
+        </li>
+        <li class="nav-item mx-2">
+          <select class="form-control form-control-sm form-select" id="graph-type" onchange="updateFamilyTree()">
+            <option value="tree" selected>Tree Structure</option>
+            <option value="graph-label-overlap">Graph Label Overlap</option>
+            <option value="graph-force">Graph Force</option>
+            <option value="tree-polyline">Tree Polyline</option>
+            <option value="tree-radial">Tree Radial</option>
+          </select>
+        </li>
+        <li class="nav-item mx-2">
+          <button class="btn btn-sm btn-primary" type="button" onclick="exportTree()"><i class="bi bi-download"></i>
+            Export</button>
+        </li>
+        <li class="nav-item mx-2">
+          <button class="btn btn-sm btn-danger" type="button" onclick="clearStorage()"><i class="bi bi-trash-fill"></i>
+            Clear</button>
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <div class="">
+          <label class="fw-bold" for="familyTree">Upload Ancestry File</label>
+          <input class="form-control form-control-sm" type="file" name="familyTree" id="familyTree" accept=".json"
+          onchange="importTree(event)">
+        </div>
       </div>
-      <button class="btn btn-sm btn-primary" type="button" onclick="exportTree()"><i class="bi bi-download"></i>
-        Export</button>
-      <button class="btn btn-sm btn-danger" type="button" onclick="clearStorage()"><i class="bi bi-trash-fill"></i>
-        Clear</button>
     </div>
+  </nav>
+  <!-- Navbar End -->
+
+  <div class="container py-3 mt-5 pt-5">
     <div id="chart"></div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal fade" id="modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

@@ -1,4 +1,4 @@
 #chart {
   width: 100%;
-  height: calc(100dvh - 200px);
+  min-height: calc(100dvh - 115px);
 }
